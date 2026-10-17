@@ -2,6 +2,8 @@
 
 本文按由浅入深、由简单到复杂的顺序，系统梳理 C++ 中常用的十种排序算法与标准库 `std::sort`，涵盖核心思想、执行过程、可编译代码、复杂度、稳定性、适用场景与优化点。各算法的示例代码均为可直接编译运行的独立源文件（语言标准 C++14 及以上，已通过 MSVC `/std:c++14 /W3` 零警告编译与运行验证）；文中少量标注为「片段」的代码块为局部函数，需嵌入对应实现中使用。
 
+> **本文件是详解版**，用于理解原理与工程实现。若目标是竞赛 / 面试现场快速查找，请改用：[`README.md`](README.md)（总导航） · [`sorting-cheatsheet.md`](sorting-cheatsheet.md)（速查卡 + 默写模板） · [`sorting-competition.md`](sorting-competition.md)（竞赛场景代码） · [`sorting-interview-qa.md`](sorting-interview-qa.md)（面试高频问答）
+
 * * *
 
 ## 目录
@@ -940,6 +942,18 @@
 ### 12.5 演进脉络
 
 比较排序的性能演化主线是「如何减少无效比较」：冒泡与选择以 O(n²) 的相邻 / 全局扫描为起点；插入排序引入自适应性；希尔排序用递减增量做跨距预处理；归并排序以分治把复杂度压到稳定的 O(n log n)，代价是 O(n) 空间；快速排序以原地划分取得最优常数，代价是最坏退化；堆排序以 O(1) 空间取得最坏保证，代价是缓存局部性；Introsort 把三者组合，成为工业级默认解。非比较排序（计数、桶、基数）则跳出比较模型，以值域约束换取线性时间。
+
+* * *
+
+### 12.6 延伸阅读
+
+| 方向  | 建议  |
+| --- | --- |
+| 复杂度证明与不变量 | CLRS《算法导论》第 2、6、7、8 章（堆、快排、线性时间排序、下界） |
+| 工程实现细节 | libstdc++ `bits/stl_algo.h` 中 `__introsort_loop` / `__unguarded_partition` 源码 |
+| 现代工业排序 | pdqsort（pattern-defeating quicksort）、Timsort、IPS⁴o（in-place parallel super scalar sample sort） |
+| 字符串与外存 | burstsort、外部归并排序与败者树 |
+| 在线参考 | cppreference 上 `sort` / `stable_sort` / `nth_element` 的复杂度与迭代器要求条款 |
 
 * * *
 
